@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+      <link rel='stylesheet' media='all' href='/includes/style.css'>
+      <title>States, Capitals, and Flags</title>   
+   </head>
+   <body>
+      <p><a href='/index.html'>Home</a></p>
+      <header><p>States, Capitals, and Flags</p></header>
+      <form action = "cgi-bin/states.cgi" method = "POST" accept-charset="utf-8">
+         <div>target: <input type = "text" name = "target" size="50" value = ""></div>
+         <br>
+         <div><label><input type="radio" name="option" value="state" checked>search by state</label>
+            <label><input type="radio" name="option" value="capital">search by capital</label></div>
+         <div><label><input type="radio" name="option" value="state_list">list alphabetically by state</label>
+            <label><input type="radio" name="option" value="capital_list">list alphabetically by capital</label></div>
+         <div><label><input type="radio" name="option" value="pop">list by population ascending</label>
+            <label><input type="radio" name="option" value="pop_reverse">list by population descending</label></div>
+         <div><label><input type="radio" name="option" value="area">list by area ascending</label>
+            <label><input type="radio" name="option" value="area_reverse">list by area ascending</label></div>
+         <br>
+         <div><input type='submit' name='search' value='submit'></div>
+      </form>
+      <p><a href='/index.html'>Home</a></p>
+      <footer><p>Copyright &#xa9; 2018 Josh Roybal</p></footer>
+   </body>
+</html>
