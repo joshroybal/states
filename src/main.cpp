@@ -12,10 +12,11 @@ void printform(std::string&);
 int main()
 {
    char buf[RECORD_LENGTH];
-   const std::string header = "\t\t\t<tr><th>state</th><th>capital</th>"
-   "<th>flag</th><th>pop</th><th>area</th><th>abbrev</th>"
-   "<th>date of admission</th><th>ev</th>"
-   "<th>largest city</th></tr>\n";
+   const std::string header = "\t\t\t<tr><th>State</th><th>Capital</th>"
+   "<th>Flag</th><th>Population</th><th>Total Area km \u00B2</th>"
+   "<th>Postal Code</th><th>Date of Admission</th><th>Electoral Votes</th>"
+   "<th>Largest City</th></tr>\n";
+   const std::string headline = "C++ U. S. States Data Retrieval";
 
    // pointer to function prototype
    Record* (*search)(const std::string&);
@@ -26,11 +27,12 @@ int main()
    std::cout << "\t<head>\n";
    std::cout << "\t\t<meta name='viewport' content='width=device-width, initial-scale=1.0'>\n";
    std::cout << "\t\t<link rel='stylesheet' media='all' href='/includes/gradienttable.css'>\n";
-   std::cout << "\t\t<title>States, Capitals, and Flags</title>\n";
+   std::cout << "\t\t<title>" << headline << "</title>\n";
    std::cout << "\t</head>\n";
    std::cout << "\t<body>\n";
-   std::cout << "\t\t<header><p>States, Capitals, and Flags</p></header>\n";
+   std::cout << "\t\t<header><p>" << headline << "</p></header>\n";
    std::cout << "\t\t<p><a href='/index.html'>Home</a> | <a href='/states.html'>Back</a></p>\n";
+   std::cout << "\t\t<h1>" << headline << "</h1>\n";
 
    try {
       std::string target("");
@@ -53,7 +55,6 @@ int main()
          if (process == "state" || process == "capital") {
             if (process == "state") search = &binarysearch;
             if (process == "capital") search = &linearsearch;
-            std::cout << "<p>under development</p>\n";
             Record* record = search(target);
             if (record != 0) {
                std::cout << "<table class='gradienttable'>\n";
@@ -64,7 +65,6 @@ int main()
                std::cout << "<p>target not found</p>\n";
             }
          } else if (process == "state_list") {
-            std::cout << "<p>under development</p>\n";
             std::cout << "<table class='gradienttable'>\n";
             std::cout << header;
             std::ifstream ifstr;
@@ -76,7 +76,6 @@ int main()
             ifstr.close();
             std::cout << "</table>\n";
          } else if (process == "capital_list") {
-            std::cout << "<p>under development</p>\n";
             unsigned n = 0;
             std::ifstream ifstr;
             ifstr.open("states.dat", std::ios::in | std::ios::binary);
@@ -105,7 +104,6 @@ int main()
 
          } else if (process == "pop" || process == "pop_reverse"
                || process == "area" || process == "area_reverse") {
-            std::cout << "<p>under development</p>\n";
             unsigned n = 0;
             std::ifstream ifstr;
             ifstr.open("states.dat", std::ios::in | std::ios::binary);
@@ -169,13 +167,13 @@ int main()
 // print form with selected radio button preserved
 void printform(std::string& process)
 {
-   std::cout << "<form action = 'states.cgi' method = 'POST' accept-charset='utf-8'>\n";
-   std::cout << "<div>target: <input type = 'text' name = 'target' size='50' value = ''></div>\n";
-   std::cout << "<br>\n";
+   std::cout << "\t\t<form action = 'states.cgi' method = 'POST' accept-charset='utf-8'>\n";
+   std::cout << "\t\t\t<div>target: <input type = 'text' name = 'target' size='50' value = ''></div>\n";
+   std::cout << "\t\t\t<br>\n";
    if (process == "state")
-      std::cout << "<div><label><input type='radio' name='option' value='state' checked>search by state</label>";
+      std::cout << "\t\t\t<div><label><input type='radio' name='option' value='state' checked>search by state</label>";
    else
-      std::cout << "<div><label><input type='radio' name='option' value='state'>search by state</label>";
+      std::cout << "\t\t\t<div><label><input type='radio' name='option' value='state'>search by state</label>";
   
    if (process == "capital") 
        std::cout << " <label><input type='radio' name='option' value='capital' checked>search by capital</label></div>\n";
@@ -183,9 +181,9 @@ void printform(std::string& process)
       std::cout << " <label><input type='radio' name='option' value='capital'>search by capital</label></div>\n";
    
    if (process == "state_list")
-       std::cout << "<div><label><input type='radio' name='option' value='state_list' checked>list alphabetically by state</label>";
+       std::cout << "\t\t\t<div><label><input type='radio' name='option' value='state_list' checked>list alphabetically by state</label>";
    else
-      std::cout << "<div><label><input type='radio' name='option' value='state_list'>list alphabetically by state</label>";
+      std::cout << "\t\t\t<div><label><input type='radio' name='option' value='state_list'>list alphabetically by state</label>";
    
    if (process == "capital_list")
       std::cout << " <label><input type='radio' name='option' value='capital_list' checked>list alphabetically by capital</label></div>\n";
@@ -193,9 +191,9 @@ void printform(std::string& process)
       std::cout << " <label><input type='radio' name='option' value='capital_list'>list alphabetically by capital</label></div>\n";
   
    if (process == "pop")
-      std::cout << "<div><label><input type='radio' name='option' value='pop' checked>list by population ascending</label>";
+      std::cout << "\t\t\t<div><label><input type='radio' name='option' value='pop' checked>list by population ascending</label>";
    else 
-      std::cout << "<div><label><input type='radio' name='option' value='pop'>list by population ascending</label>";
+      std::cout << "\t\t\t<div><label><input type='radio' name='option' value='pop'>list by population ascending</label>";
    
    if (process == "pop_reverse")
       std::cout << " <label><input type='radio' name='option' value='pop_reverse' checked>list by population descending</label></div>\n";
@@ -203,17 +201,17 @@ void printform(std::string& process)
       std::cout << " <label><input type='radio' name='option' value='pop_reverse'>list by population descending</label></div>\n";
    
    if (process == "area")
-      std::cout << "<div><label><input type='radio' name='option' value='area' checked>list by area ascending</label>";
+      std::cout << "\t\t\t<div><label><input type='radio' name='option' value='area' checked>list by area ascending</label>";
    else
-      std::cout << "<div><label><input type='radio' name='option' value='area'>list by area ascending</label>";
+      std::cout << "\t\t\t<div><label><input type='radio' name='option' value='area'>list by area ascending</label>";
    
    if (process == "area_reverse")
       std::cout << " <label><input type='radio' name='option' value='area_reverse' checked>list by area descending</label></div>\n";
    else
       std::cout << " <label><input type='radio' name='option' value='area_reverse'>list by area descending</label></div>\n";
    
-   std::cout << "<br>\n";
-   std::cout << "<div><input type='submit' name='search' value='submit'></div>\n";
-   std::cout << "</form>\n";
-   std::cout << "<br>\n";
+   std::cout << "\t\t\t<br>\n";
+   std::cout << "\t\t\t<div><input type='submit' name='search' value='submit'></div>\n";
+   std::cout << "\t\t</form>\n";
+   std::cout << "\t\t<br>\n";
 }
